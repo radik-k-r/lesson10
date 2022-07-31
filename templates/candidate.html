@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>О кандидате</title>
+</head>
+<body>
+{% for line in data %}
+    {% if line.pk == pk %}
+    <pre><p>
+    Имя кандидата - {{ line.name }}
+    Позиция - {{ line.position }}
+    Навыки - {{ line.skills }}
+    </pre></p>
+    {% endif %}
+{% endfor %}
+</body>
+</html>

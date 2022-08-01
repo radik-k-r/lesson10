@@ -9,11 +9,13 @@ def load_candidates(filename):
 
 def get_all(data):
     """Показывает всех кандидатов"""
-
-    candidates_list = []
     for candidate in data:
-        candidates_list.append(candidate["name"])
-    return candidates_list
+        candidate = (
+            f'Имя кандидата - {candidate.name}'
+            f'Позиция - {candidate.position}'
+            f'Навыки - {candidate.skills}'
+        )
+    return
 
 
 def get_by_pk(pk, data):

@@ -1,30 +1,23 @@
 from flask import Flask
-
-from utils import load_candidates, get_all, get_by_pk, get_by_skill
+from utils import load_candidates, get_all, get_by_pk, get_by_skill, data
 
 app = Flask(__name__)
-
-# файл с информацией о кандидатах
-filename = "candidates.json"
-
-# вся информация о кандидатах
-data = load_candidates(filename)
 
 
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html', data=data)
+    return get_all()
 
 
 @app.route('/candidates/<int:pk>')
-def candidates(pk):
-    return render_template('candidate.html', data=data, pk=pk)
+def candidate(pk):
+    return get_by_pk(pk)
 
 
 @app.route('/skills/<skill>')
 def skills_info(skill):
-    return render_template('skills.html', data2=get_by_skill(skill, data))
+    return get_by_skill(skill.lower())
 
 
 if __name__ == "__main__":

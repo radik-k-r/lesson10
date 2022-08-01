@@ -7,35 +7,57 @@ def load_candidates(filename):
         return json.loads(file.read())
 
 
-def get_all(data):
+# Правильно ли хранить переменные в utils. Или они должны быть main?
+# Файл с информацией о кандидатах
+filename = "candidates.json"
+
+# вся информация о кандидатах
+data = load_candidates(filename)
+
+
+def get_all():
     """Показывает всех кандидатов"""
-    for candidate in data:
-        candidate = (
-            f'Имя кандидата - {candidate.name}'
-            f'Позиция - {candidate.position}'
-            f'Навыки - {candidate.skills}'
+    candidates_list = ''
+    for person in data:
+        candidates_list += (
+            f'<pre>\n'
+            f'Имя кандидата - {person["name"]}\n'
+            f'Позиция - {person["position"]}\n'
+            f'Навыки - {person["skills"]}\n'
+            f'</pre>'
         )
-    return
+    return candidates_list
 
 
-def get_by_pk(pk, data):
+def get_by_pk(pk):
     """Вернет кандидата по pk"""
-    for line in data:
-        if line['pk'] == pk:
-            return f'Имя кандидата - {line.name }' \
-                   f'Позиция - {line.position }' \
-                   f'Навыки - { line.skills }'
-        else:
-            return "No candidate with such pk"
+    for person in data:
+        if (person['pk']) == pk:
+            return (
+                f'<pre>\n'
+                f'Имя кандидата - {person["name"]}\n'
+                f'Позиция - {person["position"]}\n'
+                f'Навыки - {person["skills"]}\n'
+                f'</pre>'
+            )
+    else:
+        return f'<pre> No candidate with such pk </pre>'
 
 
-def get_by_skill(skill_name, data):
+def get_by_skill(skill):
     """Возвращает кандидатов по навыку"""
-    candidates_by_skill = []
-    for line in data:
-        if skill_name in line['skills'].lower():
-            candidates_by_skill.append(line['name'])
-            candidates_by_skill.append(line['position'])
-            candidates_by_skill.append(line['skills'])
+    candidates_by_skill = ""
+    for person in data:
+        if skill in person['skills'].lower():
+            candidates_by_skill += (
+                f'<pre>\n'
+                f'Имя кандидата - {person["name"]}\n'
+                f'Позиция - {person["position"]}\n'
+                f'Навыки - {person["skills"]}\n'
+                f'</pre>'
+            )
+    if candidates_by_skill:
+        return candidates_by_skill
+    else:
+        return f'<pre>Jet no skilled staff</pre>'
 
-    return v
